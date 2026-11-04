@@ -463,11 +463,27 @@ with tab5:
         display_data = leaderboard_data
 
     # Visual 5: Styled Interactive Leaderboard Table
-    st.dataframe(
-        display_data.style.background_gradient(subset=['Rating_Improvement'], cmap='RdYlGn'),
-        use_container_width=True,
-        height=500
-    )
+    try:
+        styled_table = display_data.style.background_gradient(subset=['Rating_Improvement'], cmap='RdYlGn')
+        st.dataframe(
+            styled_table,
+            use_container_width=True,
+            height=500
+        )
+    except Exception:
+        # Fallback to native Streamlit formatted display if matplotlib is not loaded
+        st.dataframe(
+            display_data,
+            column_config={
+                "Rating_Improvement": st.column_config.NumberColumn(
+                    "Rating Improvement (ΔR)",
+                    format="%+.2f",
+                    help="Post-injury rating minus Pre-injury rating"
+                )
+            },
+            use_container_width=True,
+            height=500
+        )
 
     # Download Button
     csv_bytes = display_data.to_csv(index=False).encode('utf-8')
