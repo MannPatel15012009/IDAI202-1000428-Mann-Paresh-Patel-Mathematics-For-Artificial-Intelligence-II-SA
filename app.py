@@ -74,27 +74,40 @@ st.markdown("""
         margin-right: 8px;
     }
 
-    /* Metric Cards */
+    /* Metric Cards - Premium High-Contrast Theme */
     div[data-testid="stMetric"] {
-        background-color: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        padding: 16px 20px;
-        border-radius: 12px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        background-color: #1E293B !important;
+        border: 1px solid #334155 !important;
+        padding: 18px 22px !important;
+        border-radius: 14px !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+        transition: transform 0.2s ease, border-color 0.2s ease;
     }
     div[data-testid="stMetric"]:hover {
-        border-color: #3B82F6;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        transform: translateY(-2px);
+        border-color: #38BDF8 !important;
+        box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25) !important;
     }
-    div[data-testid="stMetricLabel"] {
-        font-size: 0.88rem;
-        color: #64748B;
-        font-weight: 600;
+    /* Metric Criteria / Labels (100% Visible & High Contrast) */
+    div[data-testid="stMetricLabel"],
+    div[data-testid="stMetricLabel"] *,
+    div[data-testid="stMetricLabel"] p,
+    div[data-testid="stMetricLabel"] label,
+    div[data-testid="stMetricLabel"] span {
+        color: #94A3B8 !important;
+        font-size: 0.92rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.02em;
     }
-    div[data-testid="stMetricValue"] {
-        font-size: 1.7rem;
-        font-weight: 700;
-        color: #0F172A;
+    /* Metric Values (Crisp Pure White) */
+    div[data-testid="stMetricValue"],
+    div[data-testid="stMetricValue"] *,
+    div[data-testid="stMetricValue"] div,
+    div[data-testid="stMetricValue"] span {
+        color: #FFFFFF !important;
+        font-size: 1.85rem !important;
+        font-weight: 800 !important;
+        line-height: 1.2;
     }
 
     /* Tabs Styling */
@@ -102,28 +115,30 @@ st.markdown("""
         gap: 8px;
     }
     .stTabs [data-baseweb="tab"] {
-        background-color: #FFFFFF;
-        border: 1px solid #E2E8F0;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(148, 163, 184, 0.2);
         border-radius: 8px 8px 0 0;
         padding: 10px 18px;
         font-weight: 600;
-        color: #475569;
+        color: #CBD5E1;
     }
     .stTabs [aria-selected="true"] {
         background-color: #1E3A8A !important;
         color: #FFFFFF !important;
-        border-color: #1E3A8A !important;
+        border-color: #38BDF8 !important;
     }
 
     /* Insight Callout */
     .insight-card {
-        background-color: #EFF6FF;
-        border-left: 4px solid #2563EB;
-        padding: 14px 18px;
-        border-radius: 0 8px 8px 0;
-        margin: 14px 0;
-        color: #1E3A8A;
-        font-size: 0.95rem;
+        background-color: rgba(30, 58, 138, 0.22);
+        border: 1px solid rgba(59, 130, 246, 0.35);
+        border-left: 5px solid #38BDF8;
+        padding: 16px 20px;
+        border-radius: 0 10px 10px 0;
+        margin: 16px 0;
+        color: #E2E8F0;
+        font-size: 0.96rem;
+        line-height: 1.5;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -354,10 +369,15 @@ with tab2:
 
     with col_stat:
         st.markdown(f"""
-        <div style="background-color: #FFFFFF; border: 1px solid #CBD5E1; padding: 14px 20px; border-radius: 10px; margin-top: 10px;">
-            <b>👤 {chosen_player}</b> | {p_club} | {p_pos} | Age: {p_age} | FIFA Rating: <b>{p_fifa}</b><br>
-            Total Recorded Injuries: <b>{p_inj_count}</b> | Career Pre-Injury Avg: <b>{p_avg_pre:.2f}</b> | Post-Injury Avg: <b>{p_avg_post:.2f}</b> 
-            (Net: <b style="color: {'#059669' if p_diff >= 0 else '#DC2626'}">{p_diff:+.2f}</b>)
+        <div style="background-color: #1E293B; border: 1px solid #334155; padding: 16px 22px; border-radius: 12px; margin-top: 10px; color: #F8FAFC;">
+            <span style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF;">👤 {chosen_player}</span> &nbsp;|&nbsp; 
+            <span style="color: #94A3B8;">{p_club} • {p_pos} • Age: {p_age} • FIFA Rating: <b style="color: #38BDF8;">{p_fifa}</b></span><br>
+            <div style="margin-top: 6px; font-size: 0.95rem; color: #CBD5E1;">
+                Total Recorded Injuries: <b style="color: #FFFFFF;">{p_inj_count}</b> &nbsp;|&nbsp; 
+                Career Pre-Injury Avg: <b style="color: #FFFFFF;">{p_avg_pre:.2f}</b> &nbsp;|&nbsp; 
+                Post-Injury Avg: <b style="color: #FFFFFF;">{p_avg_post:.2f}</b> 
+                (Net: <b style="color: {'#34D399' if p_diff >= 0 else '#F87171'}">{p_diff:+.2f}</b>)
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
